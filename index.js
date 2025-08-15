@@ -1,10 +1,20 @@
+
 const express = require('express');
 const app = express();
+const path = require('path');
 
-const indexRoutes = require('./routes/indexRoutes');
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRoutes);
+app.get('/', (req, res) => {
+    res.render('index', {
+        title: 'Mi Página EJS',
+        message: '¡Hola desde EJS!'
+    });
+});
 
-app.listen(3000, () => {
-  console.log('Example app listening on port http://localhost:3000');
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Servidor escuchando en el puerto http://localhost:${port}`);
 });
